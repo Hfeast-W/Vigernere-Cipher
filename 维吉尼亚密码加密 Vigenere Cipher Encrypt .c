@@ -1,4 +1,4 @@
-//Vigenere Cipher Encrypt
+//Vigenere Cipher Decrypt & Encrypt
 # include<stdio.h>
 # include<string.h>
 # include "head.h"
@@ -21,7 +21,7 @@ ct_k = 0;
 ct_r = 0;
 int sp_arr = 0;
 
-// ¶ÁÈ¡Ô­ÎÄ
+// è¯»å–åŸæ–‡
 int readfile()
 {
 	/*char a[100];*/
@@ -29,7 +29,7 @@ int readfile()
 	FILE* fp = fopen("plaintext.txt", "r");
 	if (fp == NULL)
 	{
-		printf("ÎÄ¼ş¶ÁÈ¡ÎŞĞ§.\n");
+		printf("æ–‡ä»¶è¯»å–æ— æ•ˆ.\n");
 		return -1;
 	}
 	for (index = 0; !feof(fp); index++)
@@ -45,7 +45,7 @@ int readfile()
 	return 0;
 }
 
-//´ò¿ªtxtÎÄ¼ş£¬ÈôÄ¿Â¼ÏÂÃ»ÓĞ¸ÃÎÄ¼ş£¬Ôò´´½¨
+//æ‰“å¼€txtæ–‡ä»¶ï¼Œè‹¥ç›®å½•ä¸‹æ²¡æœ‰è¯¥æ–‡ä»¶ï¼Œåˆ™åˆ›å»º
 int writein()
 {
 	FILE* fpWrite;
@@ -55,20 +55,20 @@ int writein()
 		return 1;
 	}
 
-//Ğ´Êı×éaµÄÊı¾İµ½data_.txtÎÄ¼şÖĞ
+//å†™æ•°ç»„açš„æ•°æ®åˆ°data_.txtæ–‡ä»¶ä¸­
 	for (int index = 0; result[index] != '\0'; index++)
 	{
 		fprintf(fpWrite, "%c", result[index]);
 	}
 
-//¹Ø±ÕËùĞ´ÎÄ¼ş
+//å…³é—­æ‰€å†™æ–‡ä»¶
 
 	fclose(fpWrite);
 }
 
 
-//¼ÆËã×Ö·û´®ÖĞ×Ó´®³öÏÖµÄ´ÎÊı 
-int subString(char* str, char* sub, int* position)//strÊÇÄ¸´®
+//è®¡ç®—å­—ç¬¦ä¸²ä¸­å­ä¸²å‡ºç°çš„æ¬¡æ•° 
+int subString(char* str, char* sub, int* position)//stræ˜¯æ¯ä¸²
 {
 	int count = 0, i, j, k;
 	k = 0;
@@ -77,13 +77,13 @@ int subString(char* str, char* sub, int* position)//strÊÇÄ¸´®
 		for (j = 0; j < strlen(sub); j++)
 		{
 			if (str[i + j] != sub[j])
-				break; // ³öÏÖÁË²»Í¬×Ö·û¾ÍÍË³öÑ­»·
+				break; // å‡ºç°äº†ä¸åŒå­—ç¬¦å°±é€€å‡ºå¾ªç¯
 		}
 		if (j == strlen(sub))
 		{
 			position[k++] = i;
 			printf(" %d ", i);
-			count++; // ÍË³öÑ­»·ºóÈôjµÄÖµµÈÓÚ×Ó´®µÄ³¤¶È£¬Ôò´æÔÚ×Ó´®
+			count++; // é€€å‡ºå¾ªç¯åè‹¥jçš„å€¼ç­‰äºå­ä¸²çš„é•¿åº¦ï¼Œåˆ™å­˜åœ¨å­ä¸²
 		}
 	}
 	return count;
@@ -93,9 +93,9 @@ int subString(char* str, char* sub, int* position)//strÊÇÄ¸´®
 //int main(void)
 //{
 //	char str[100], sub[50];
-//	printf("ÇëÊäÈëÄ¸´®£º");
+//	printf("è¯·è¾“å…¥æ¯ä¸²ï¼š");
 //	gets_s(str);
-//	printf("ÇëÊäÈë×Ó´®£º");
+//	printf("è¯·è¾“å…¥å­ä¸²ï¼š");
 //	gets_s(sub);
 //	printf("%d\n", subString(str, sub));
 //	return 0;
@@ -115,7 +115,7 @@ int Pim(char* str, char ch)
 	return count;
 }
 
-void Pim_arr(char* str, char ch) // ÔÚ×Ó×Ö·û´®ÖĞ¼ÆËãchµÄÊıÁ¿£¬²¢´æ´¢ÔÚÊı×éÖĞ
+void Pim_arr(char* str, char ch) // åœ¨å­å­—ç¬¦ä¸²ä¸­è®¡ç®—chçš„æ•°é‡ï¼Œå¹¶å­˜å‚¨åœ¨æ•°ç»„ä¸­
 {
 	char* p_str = str;
 	int count = 0;
@@ -129,7 +129,7 @@ void Pim_arr(char* str, char ch) // ÔÚ×Ó×Ö·û´®ÖĞ¼ÆËãchµÄÊıÁ¿£¬²¢´æ´¢ÔÚÊı×éÖĞ
 	count_ch[ch - 'A'] = count;
 }
 
-void di_sub(char* result, int m) // m±íÊ¾Òª½«ÃÜÎÄ´®²ğ³ÉmĞĞ
+void di_sub(char* result, int m) // mè¡¨ç¤ºè¦å°†å¯†æ–‡ä¸²æ‹†æˆmè¡Œ
 {
 		int k = 0;
 		int j = 0;
@@ -179,55 +179,55 @@ int encrypt (char* text, char* result, char* key)
 
 int decrypt()
 {
-	printf("ÇëÊäÈëÄúÒªÔÚÎÄ±¾ÖĞ²éÑ¯µÄ×Ó´®:");
+	printf("è¯·è¾“å…¥æ‚¨è¦åœ¨æ–‡æœ¬ä¸­æŸ¥è¯¢çš„å­ä¸²:");
 	scanf("%s", sub);
 	
 	int count = subString(result, sub, position);
-	printf("×Ó´® %s ³öÏÖµÄ´ÎÊıÎª: %d\n", sub, count);//CUT = 3	
+	printf("å­ä¸² %s å‡ºç°çš„æ¬¡æ•°ä¸º: %d\n", sub, count);//CUT = 3	
 	
-	//ÓÃKasiski²âÊÔ·¨²Â²â
+	//ç”¨Kasiskiæµ‹è¯•æ³•çŒœæµ‹
 	int d1 = gcd(position[1] - position[0], position[2] - position[1]);
 	int d2 = gcd(position[1] - position[0], position[2] - position[0]);
 	int d3 = gcd(position[2] - position[1], position[2] - position[0]);
-	printf("Ç°Èı¸öÎ»ÖÃÁ½Á½Ö®²îµÄgcdÎª: %d %d %d\n", d1, d2, d3);
-	//printf("ÏÖÔÚÄú¿ÉÒÔ¼ÌĞøÊ¹ÓÃgcd()º¯ÊıÇóÎ»ÖÃÖ®²îµÄ×î´ó¹«Ô¼Êı\n");
+	printf("å‰ä¸‰ä¸ªä½ç½®ä¸¤ä¸¤ä¹‹å·®çš„gcdä¸º: %d %d %d\n", d1, d2, d3);
+	//printf("ç°åœ¨æ‚¨å¯ä»¥ç»§ç»­ä½¿ç”¨gcd()å‡½æ•°æ±‚ä½ç½®ä¹‹å·®çš„æœ€å¤§å…¬çº¦æ•°\n");
 	int key_len;
-	printf("ÇëÊäÈëÄú²ÂÈ¡µÄÃØÔ¿³¤¶È:");
+	printf("è¯·è¾“å…¥æ‚¨çŒœå–çš„ç§˜é’¥é•¿åº¦:");
 	scanf("%d", &key_len);
 
-	//ÓÃÖØºÏÖ¸Êı·¨½øÒ»²½È·ÈÏ
+	//ç”¨é‡åˆæŒ‡æ•°æ³•è¿›ä¸€æ­¥ç¡®è®¤
 	
 	float numer = 0;
 	for ( int i = 1; i <= key_len; i++)
 	{	
-		printf("\nµ±i=%dÊ±£¬ÖØºÏÖ¸ÊıÎª:(Ô½½Ó½ü0.065Ô½ÊÇÕıÈ·´ğ°¸) ", i);
-		memset(sub, 0, sizeof(sub));// sub×Ö·ûĞÍÊı×éÇåÁã
+		printf("\nå½“i=%dæ—¶ï¼Œé‡åˆæŒ‡æ•°ä¸º:(è¶Šæ¥è¿‘0.065è¶Šæ˜¯æ­£ç¡®ç­”æ¡ˆ) ", i);
+		memset(sub, 0, sizeof(sub));// subå­—ç¬¦å‹æ•°ç»„æ¸…é›¶
 		sp_arr = 0;
 		for ( int m = 0; m < i; m++)
 		{
-			di_sub(result, i);// ÇĞ·Ö×Ö·û,ÇĞ·ÖÍêºóµÄ×Ó×Ö·û´®´æÔÚsubÀï
-			numer = 0; // ·Ö×Ó¹éÁã
-			for ( int j = 0; j < 26; j++) // ch[0]±éÀú a~z
+			di_sub(result, i);// åˆ‡åˆ†å­—ç¬¦,åˆ‡åˆ†å®Œåçš„å­å­—ç¬¦ä¸²å­˜åœ¨subé‡Œ
+			numer = 0; // åˆ†å­å½’é›¶
+			for ( int j = 0; j < 26; j++) // ch[0]éå† a~z
 			{
 				char ch = 'A' + j;
-				// Pim(sub, ch); ¼ÆËãsubÖĞ×ÖÄ¸µÄÆµÊı
+				// Pim(sub, ch); è®¡ç®—subä¸­å­—æ¯çš„é¢‘æ•°
 				int pim_ch = Pim(sub, ch);
 				numer += pim_ch * (pim_ch - 1);
 			}
 			float len_sub = strlen(sub);
 			printf(" %.3f ", numer / (len_sub * (len_sub - 1)));
-			memset(sub, 0, sizeof(sub));// sub×Ö·ûĞÍÊı×éÇåÁã
+			memset(sub, 0, sizeof(sub));// subå­—ç¬¦å‹æ•°ç»„æ¸…é›¶
 		}  
 	}	
-	// ¿ªÊ¼È·¶¨¾ßÌåµÄÃØÔ¿K=()
+	// å¼€å§‹ç¡®å®šå…·ä½“çš„ç§˜é’¥K=()
 	int sub_key_len = strlen(result) / key_len;
 	float sum_Mg = 0;
-	memset(sub, 0, sizeof(sub));// sub×Ö·ûĞÍÊı×éÇåÁã
-	sp_arr = 0; // sp_arrÇåÁã,ÎªÁËÄÜ¹»5·Öresult
+	memset(sub, 0, sizeof(sub));// subå­—ç¬¦å‹æ•°ç»„æ¸…é›¶
+	sp_arr = 0; // sp_arræ¸…é›¶,ä¸ºäº†èƒ½å¤Ÿ5åˆ†result
 	for ( int sub_i = 0; sub_i < key_len; sub_i++)
 	{
 		di_sub(result, key_len);
-		printf("\nsub_i=%d, M_g(sub)µÄÖµ: ",sub_i + 1); // M_g = sigma(i=0~25) p_i*f_(i+g)/sub_key_len
+		printf("\nsub_i=%d, M_g(sub)çš„å€¼: ",sub_i + 1); // M_g = sigma(i=0~25) p_i*f_(i+g)/sub_key_len
 		for (int g = 0; g < 26; g++)
 		{
 			for (int index = 0; index < 26; index++)
@@ -240,7 +240,7 @@ int decrypt()
 			sum_Mg = 0;
 		}
 		
-		memset(sub, 0, sizeof(sub));// sub×Ö·ûĞÍÊı×éÇåÁã
+		memset(sub, 0, sizeof(sub));// subå­—ç¬¦å‹æ•°ç»„æ¸…é›¶
 	}
 	
 	
@@ -253,21 +253,21 @@ int main()
 {
 	readfile();
 
-	printf("»¶Ó­À´µ½Î¬¼ªÄáÑÇÃÜÂë¼ÓÃÜ/½âÃÜÏµÍ³\n");
-	/*printf("ÇëÊäÈëÄúÒª´¦ÀíµÄÎÄ±¾:");
+	printf("æ¬¢è¿æ¥åˆ°ç»´å‰å°¼äºšå¯†ç åŠ å¯†/è§£å¯†ç³»ç»Ÿ\n");
+	/*printf("è¯·è¾“å…¥æ‚¨è¦å¤„ç†çš„æ–‡æœ¬:");
 	scanf_s("%[^\n]", text, sizeof(text));*/
-	printf("ÇëÊäÈëÄúÒªÑ¡ÔñµÄÄ£Ê½(1:¼ÓÃÜ,2:½âÃÜ):");
+	printf("è¯·è¾“å…¥æ‚¨è¦é€‰æ‹©çš„æ¨¡å¼(1:åŠ å¯†,2:è§£å¯†):");
 	//scanf_s("%d", &mode, sizeof(mode));
 	scanf("%d", &mode);
 
 	if (mode == 1)
 	{
-		printf("ÇëÊäÈëÃØÔ¿:");
+		printf("è¯·è¾“å…¥ç§˜é’¥:");
 		scanf_s("%s", key, sizeof(key));
 
 		encrypt(text, result, key);
 		writein();
-		printf("¼ÓÃÜºóµÄ½á¹ûÊÇ:%s",result);
+		printf("åŠ å¯†åçš„ç»“æœæ˜¯:%s",result);
 	}
 
 	else if (mode == 2)
@@ -276,7 +276,7 @@ int main()
 		FILE* fp = fopen("cipher.txt", "r");
 		if (fp == NULL)
 		{
-			printf("ÎÄ¼ş¶ÁÈ¡ÎŞĞ§.\n");
+			printf("æ–‡ä»¶è¯»å–æ— æ•ˆ.\n");
 			return -1;
 		}
 		for (index = 0; !feof(fp); index++)
